@@ -163,12 +163,4 @@ class Recipe:
 			self.addIngredient(t)
 			t=f.readline()[:-1]
 		self.tasteNotes=f.readline()
-		#t=""
-		#for x in f:
-		#	self.addIngredient(x)
-		#	t=x
-		#self.ingredientList.pop()
-		#self.ingredientList.pop()
-		#self.addIngredient(f.readline())
-		#self.tasteNotes=t
 		f.close()
