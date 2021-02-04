@@ -2,7 +2,7 @@ import numpy as np
 import datetime as dt
 
 class Recipe:
-	def __init__(self, category="NA", name="NA", flavor="NA", yeast="NA", goalABV=0, startDate=dt.date.today(), OG=0, FG=0, ABV=0, ingredientList=[], tasteNotes):
+	def __init__(self, category="NA", name="NA", flavor="NA", yeast="NA", goalABV=0, startDate=dt.date.today(), OG=0, FG=0, ABV=0, ingredientList=[], tasteNotes=""):
 		self.category=category
 		self.name=name
 		self.flavor=flavor
@@ -13,7 +13,7 @@ class Recipe:
 		self.FG=FG
 		self.ABV=ABV
 		self.ingredientList=ingredientList
-		self.taseNotes=tasteNotes
+		self.tasteNotes=tasteNotes
 	
 	#Category Functions
 	def printCategory(self):
@@ -70,6 +70,7 @@ class Recipe:
 		return self.OG
 	def setOG(self, o):
 		self.OG=o
+		self.calcABV()
 
 	#FG Functions
 	def printFG(self):
@@ -78,6 +79,7 @@ class Recipe:
 		return self.FG
 	def setFG(self, f):
 		self.FG=f
+		self.calcABV()
 
 	#ABV Functions
 	def printABV(self):
@@ -85,7 +87,7 @@ class Recipe:
 	def getABV(self):
 		return self.ABV
 	def calcABV(self):
-		self.ABV=(self.OG-self.FG)*131.25
+		self.ABV=round(abs(self.OG-self.FG)*131.25,2)
 	
 	#Ingredient List Functions
 	def printIngredientList(self):
@@ -108,5 +110,42 @@ class Recipe:
 	def writeRecipe(self):
 		s=self.name+".txt"
 		f=open(s,"w")
-		f.writelines([self.category,self.name,self.flavor,self.yeast,self.goalABV,self.startDate,self.OG,self.FG,self.ABV,self.ingredientList,self.tasteNotes])
+		f.write(self.category)
+		f.write("\n")
+		f.write(self.name)
+		f.write("\n")
+		f.write(self.flavor)
+		f.write("\n")
+		f.write(self.yeast)
+		f.write("\n")
+		f.write(str(self.goalABV))
+		f.write("\n")
+		f.write(self.startDate)
+		f.write("\n")
+		f.write(str(self.OG))
+		f.write("\n")
+		f.write(str(self.FG))
+		f.write("\n")
+		f.write(str(self.ABV))
+		f.write("\n")
+		f.write("istart")
+		f.write("\n")
+		for i in self.ingredientList:
+			f.write(i)
+			f.write("\n")
+		f.write("iend")
+		f.write("\n")
+		f.write(self.tasteNotes)
+
+		#f.writelines([self.category,self.name,self.flavor,self.yeast,str(self.goalABV),self.startDate,str(self.OG),str(self.FG),str(self.ABV),self.ingredientList,self.tasteNotes])
 		f.close()
+
+	#Full Print
+	def printRecipe(self):
+		f=[self.category,self.name,self.flavor,self.yeast,self.goalABV,self.startDate,self.OG,self.FG,self.ABV,self.ingredientList,self.tasteNotes]
+		for i in f:
+			if(i==self.ingredientList):
+				for l in i:
+					print(l)
+			else:
+				print(i)
