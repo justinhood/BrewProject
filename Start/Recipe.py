@@ -128,16 +128,12 @@ class Recipe:
 		f.write("\n")
 		f.write(str(self.ABV))
 		f.write("\n")
-		f.write("istart")
-		f.write("\n")
 		for i in self.ingredientList:
 			f.write(i)
 			f.write("\n")
 		f.write("iend")
 		f.write("\n")
 		f.write(self.tasteNotes)
-
-		#f.writelines([self.category,self.name,self.flavor,self.yeast,str(self.goalABV),self.startDate,str(self.OG),str(self.FG),str(self.ABV),self.ingredientList,self.tasteNotes])
 		f.close()
 
 	#Full Print
@@ -149,3 +145,30 @@ class Recipe:
 					print(l)
 			else:
 				print(i)
+	
+	#Load From File
+	def load(self, fname):
+		f=open(fname,"r")
+		self.category=f.readline()[:-1]
+		self.name=f.readline()[:-1]
+		self.flavor=f.readline()[:-1]
+		self.yeast=f.readline()[:-1]
+		self.goalABV=float(f.readline())
+		self.startDate=f.readline()[:-1]
+		self.OG=float(f.readline())
+		self.FG=float(f.readline())
+		self.ABV=float(f.readline())
+		t=f.readline()[:-1]
+		while(t!="iend"):
+			self.addIngredient(t)
+			t=f.readline()[:-1]
+		self.tasteNotes=f.readline()
+		#t=""
+		#for x in f:
+		#	self.addIngredient(x)
+		#	t=x
+		#self.ingredientList.pop()
+		#self.ingredientList.pop()
+		#self.addIngredient(f.readline())
+		#self.tasteNotes=t
+		f.close()
