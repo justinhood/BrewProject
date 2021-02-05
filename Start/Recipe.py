@@ -108,7 +108,7 @@ class Recipe:
 
 	#Writing to File Functions
 	def writeRecipe(self):
-		s=self.name+".txt"
+		s="./Recipes/"+self.name+".txt"
 		f=open(s,"w")
 		f.write(self.category)
 		f.write("\n")

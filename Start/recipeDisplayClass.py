@@ -101,6 +101,6 @@ class RecipeDisplay(tk.Tk):
 		self.noteEntry.grid(row=8, column=1)
 
 test=Recipe()
-test.load("Maverick.txt")
+test.load("./Recipes/BrewDevil.txt")
 app=RecipeDisplay(test)
 app.mainloop()
